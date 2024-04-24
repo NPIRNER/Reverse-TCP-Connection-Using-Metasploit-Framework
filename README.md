@@ -1,4 +1,4 @@
-# Reverse TCP Connection Using Metasploit Framework 
+# Reverse TCP Connection Using Metasploit 
 
 ## Objective
 
