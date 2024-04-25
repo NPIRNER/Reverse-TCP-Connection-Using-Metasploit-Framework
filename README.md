@@ -1,4 +1,4 @@
-# Reverse TCP Shell Using Metasploit 
+# Creating a Reverse TCP Shell Using Metasploit Framework
 
 ## Objective
 
